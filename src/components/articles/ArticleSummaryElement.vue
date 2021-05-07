@@ -29,6 +29,8 @@
 export default {
   name: 'ArticleSummary',
   props: {
+    url: { type: String, default: '' },
+    slug: { type: String, default: '' },
     title: { type: String, default: '' },
     author: { type: String, default: '' },
     summary: { type: String, default: '' },
@@ -38,7 +40,14 @@ export default {
 
   methods: {
     goToDetail() {
-      //
+      const routerContent = {
+        name: 'ArticleDetail',
+        params: {
+          slug: this.slug,
+          url: this.url,
+        },
+      };
+      this.$router.push(routerContent);
     },
   },
 };

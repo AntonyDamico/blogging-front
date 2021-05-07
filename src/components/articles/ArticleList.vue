@@ -7,6 +7,8 @@
           <!-- :author="article.author" -->
       <ad-article-summary-element
         v-for="(article, index) in articles" :key="index"
+        :url="article.url"
+        :slug="article.slug"
         :title="article.title"
         :summary="article.summary"
         :date="article.createdAt"
