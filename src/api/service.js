@@ -20,3 +20,12 @@ export const ArticleService = {
     return axiosClient.get(this.baseString, { params: { sort: sortOption } });
   },
 };
+
+export const AuthService = {
+  baseString: 'users',
+
+  login(credentials) {
+    const url = `${this.baseString}/login`;
+    return axiosClient.post(url, credentials);
+  },
+};
