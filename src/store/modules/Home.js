@@ -1,3 +1,4 @@
+import { SORT_OPTIONS } from '@/common/constants';
 import { ArticleService } from '@/api/service';
 
 export default {
@@ -5,6 +6,7 @@ export default {
 
   state: {
     articles: [],
+    sortOption: SORT_OPTIONS.DATE,
   },
 
   getters: {
@@ -19,11 +21,20 @@ export default {
       console.log(res.data);
       commit('setArticles', res.data);
     },
+    setSortTitle({ commit }) {
+      commit('setSortOption', SORT_OPTIONS.TITLE);
+    },
+    setSortDate({ commit }) {
+      commit('setSortOption', SORT_OPTIONS.DATE);
+    },
   },
 
   mutations: {
     setArticles(state, articles) {
       state.articles = articles;
+    },
+    setSortOption(state, sortOption) {
+      state.sortOption = sortOption;
     },
   },
 };

@@ -23,7 +23,6 @@ import AdArticleSummaryElement from './ArticleSummaryElement.vue';
 export default {
   components: { AdArticleSummaryElement },
   mounted() {
-    console.log(this.articles, 'hello');
     this.fetchArticles();
   },
   computed: {
