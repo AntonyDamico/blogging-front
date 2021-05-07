@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'AuthModal',
 
@@ -55,9 +57,19 @@ export default {
       this.failed = false;
     },
 
-    submit() {
-      //
+    async submit() {
+      try {
+        await this.login({
+          username: this.username,
+          password: this.password,
+        });
+        this.$parent.close();
+      } catch (error) {
+        console.log(error);
+        this.failed = true;
+      }
     },
+    ...mapActions('Auth', ['login']),
   },
 };
 </script>
