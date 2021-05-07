@@ -16,16 +16,20 @@ export default {
   },
 
   actions: {
-    async fetchArticles({ commit }) {
-      const res = await ArticleService.all();
-      console.log(res.data);
+    async fetchArticles({ state, commit }) {
+      const { sortOption } = state;
+      const res = await ArticleService.all(sortOption);
       commit('setArticles', res.data);
     },
-    setSortTitle({ commit }) {
-      commit('setSortOption', SORT_OPTIONS.TITLE);
+    setSortTitle({ dispatch }) {
+      dispatch('changeSortOption', SORT_OPTIONS.TITLE);
     },
-    setSortDate({ commit }) {
-      commit('setSortOption', SORT_OPTIONS.DATE);
+    setSortDate({ dispatch }) {
+      dispatch('changeSortOption', SORT_OPTIONS.DATE);
+    },
+    changeSortOption({ commit, dispatch }, sortOption) {
+      commit('setSortOption', sortOption);
+      dispatch('fetchArticles');
     },
   },
 
