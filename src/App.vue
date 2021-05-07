@@ -1,12 +1,19 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <ad-navbar />
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import AdNavbar from '@/components/common/Navbar.vue';
+
+export default {
+  components: { AdNavbar },
+};
+</script>
 
 <style lang="scss">
 #app {
