@@ -11,7 +11,12 @@ export default {
     async setArticleByUrl({ state, commit }, url) {
       if (state.article && state.article.url === url) return;
       const { data } = await ArticleService.getByUrl(url);
-      console.log(data);
+      commit('setArticle', data);
+    },
+
+    async setArticleBySlug({ state, commit }, slug) {
+      if (state.article && state.article.slug === slug) return;
+      const { data } = await ArticleService.getBySlug(slug);
       commit('setArticle', data);
     },
   },

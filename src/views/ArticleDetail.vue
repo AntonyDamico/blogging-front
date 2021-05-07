@@ -25,6 +25,8 @@ export default {
   async beforeRouteEnter(to, from, next) {
     if ('url' in to.params) {
       store.dispatch('Article/setArticleByUrl', to.params.url);
+    } else {
+      store.dispatch('Article/setArticleBySlug', to.params.slug);
     }
     next();
   },

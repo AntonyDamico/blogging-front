@@ -34,6 +34,11 @@ export const ArticleService = {
   getByUrl(url) {
     return axios.get(url);
   },
+
+  getBySlug(slug) {
+    const url = `${this.baseString}/${slug}`;
+    return this.client.get(url);
+  },
 };
 
 export const AuthService = {
