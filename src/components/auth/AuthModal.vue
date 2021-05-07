@@ -59,18 +59,35 @@ export default {
 
     async submit() {
       try {
-        await this.login({
-          username: this.username,
-          password: this.password,
-        });
-        this.$parent.close();
-        this.$buefy.toast.open('Sessión iniciada');
+        if (this.isLogin) {
+          await this.performLogin();
+        } else {
+          this.performRegister();
+        }
       } catch (error) {
         console.log(error);
         this.failed = true;
       }
     },
-    ...mapActions('Auth', ['login']),
+
+    async performLogin() {
+      await this.login({
+        username: this.username,
+        password: this.password,
+      });
+      this.$parent.close();
+      this.$buefy.toast.open('Sessión iniciada');
+    },
+
+    async performRegister() {
+      const res = await this.register({
+        email: this.email,
+        username: this.username,
+        password: this.password,
+      });
+      console.log(res);
+    },
+    ...mapActions('Auth', ['login', 'register']),
   },
 };
 </script>
