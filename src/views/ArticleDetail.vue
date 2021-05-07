@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="article">
     <ad-article-hero
       :title="article.title"
       :author="article.author"
@@ -14,27 +14,25 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+import store from '@/store';
 import AdArticleHero from '@/components/articles/ArticleHero.vue';
 import AdArticleBody from '@/components/articles/ArticleBody.vue';
 
 export default {
   name: 'ArticleDetail',
   components: { AdArticleHero, AdArticleBody },
-  beforeRouteEnter(to, from, next) {
+  async beforeRouteEnter(to, from, next) {
+    if ('url' in to.params) {
+      store.dispatch('Article/setArticleByUrl', to.params.url);
+    }
     next();
   },
-  data() {
-    return {
-      article: {
-        url: 'title-123213',
-        slug: 'slug-title-123213',
-        title: 'This is the title',
-        author: 'John Smith',
-        body: 'This is the body, it is much much much longer There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the',
-        date: '11:09 PM - 1 Jan 2016',
-        imageSrc: 'https://bulma.io/images/placeholders/1280x960.png',
-      },
-    };
+  computed: {
+    ...mapState('Article', ['article']),
+  },
+  methods: {
+    ...mapActions('Article', ['setArticleByUrl']),
   },
 };
 </script>

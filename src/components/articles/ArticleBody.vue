@@ -1,6 +1,6 @@
 <template>
-  <div class="columns" v-if="article">
-    <img class="column is-half" :src="article.imageSrc">
+  <div class="columns">
+    <img class="column is-half" :src="article.image">
     <div class="article-body column is-half ">
       {{ article.body }}
     </div>
