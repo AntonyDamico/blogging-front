@@ -24,9 +24,9 @@ export default {
   components: { AdArticleHero, AdArticleBody },
   async beforeRouteEnter(to, from, next) {
     if ('url' in to.params) {
-      store.dispatch('Article/setArticleByUrl', to.params.url);
+      await store.dispatch('Article/setArticleByUrl', to.params.url);
     } else {
-      store.dispatch('Article/setArticleBySlug', to.params.slug);
+      await store.dispatch('Article/setArticleBySlug', to.params.slug);
     }
     next();
   },
