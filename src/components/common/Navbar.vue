@@ -16,14 +16,26 @@
 </template>
 
 <script>
+import AuthModal from '@/components/auth/AuthModal.vue';
+
 export default {
+  name: 'Navbar',
+
   methods: {
     login() {
-      //
+      this.openAuthModal(true);
     },
 
     signUp() {
-      //
+      this.openAuthModal(false);
+    },
+
+    openAuthModal(isLogin) {
+      this.$buefy.modal.open({
+        parent: this,
+        component: AuthModal,
+        props: { isLogin },
+      });
     },
   },
 };
