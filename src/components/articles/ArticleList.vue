@@ -18,12 +18,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import eventBus from '@/common/event-bus';
 import AdArticleSummaryElement from './ArticleSummaryElement.vue';
 
 export default {
   components: { AdArticleSummaryElement },
   mounted() {
     this.fetchArticles();
+    eventBus.$on('loggedUser', this.fetchArticles);
   },
   computed: {
     ...mapGetters('Home', ['articles']),
