@@ -1,4 +1,5 @@
 import { AuthService, AxiosClient } from '@/api/service';
+import eventBus from '@/common/event-bus';
 
 export default {
   namespaced: true,
@@ -17,6 +18,7 @@ export default {
       const { data } = await AuthService.login(credentials);
       AxiosClient.setAuthHeader(data.token);
       commit('setUser', data);
+      eventBus.$emit('loggedUser');
     },
     logout({ commit }) {
       AxiosClient.deleteAuthHeader();
