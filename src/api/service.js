@@ -40,4 +40,9 @@ export const AuthService = {
     const url = `${this.baseString}/login`;
     return this.client.post(url, credentials);
   },
+
+  register(credentials) {
+    const url = 'register';
+    return this.client.post(url, credentials);
+  },
 };

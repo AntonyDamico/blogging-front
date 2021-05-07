@@ -1,4 +1,5 @@
 import { AuthService, AxiosClient } from '@/api/service';
+import { createBasicToken } from '@/api/utils';
 import eventBus from '@/common/event-bus';
 
 export default {
@@ -14,12 +15,22 @@ export default {
   },
 
   actions: {
-    async login({ commit }, credentials) {
+    async login({ dispatch }, credentials) {
       const { data } = await AuthService.login(credentials);
-      AxiosClient.setAuthHeader(data.token);
+      dispatch('setLoggedUser', { credentials, data });
+    },
+
+    async register({ dispatch }, credentials) {
+      const { data } = await AuthService.register(credentials);
+      dispatch('setLoggedUser', { credentials, data });
+    },
+
+    setLoggedUser({ commit }, { credentials, data }) {
+      AxiosClient.setAuthHeader(createBasicToken(credentials));
       commit('setUser', data);
       eventBus.$emit('loggedUser');
     },
+
     logout({ commit }) {
       AxiosClient.deleteAuthHeader();
       commit('setUser', null);

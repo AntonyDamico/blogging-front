@@ -65,7 +65,6 @@ export default {
           this.performRegister();
         }
       } catch (error) {
-        console.log(error);
         this.failed = true;
       }
     },
@@ -75,18 +74,23 @@ export default {
         username: this.username,
         password: this.password,
       });
-      this.$parent.close();
-      this.$buefy.toast.open('Sessión iniciada');
+      this.authSuccess('Sessión iniciada');
     },
 
     async performRegister() {
-      const res = await this.register({
+      await this.register({
         email: this.email,
         username: this.username,
         password: this.password,
       });
-      console.log(res);
+      this.authSuccess('Registro exitoso');
     },
+
+    authSuccess(message) {
+      this.$parent.close();
+      this.$buefy.toast.open(message);
+    },
+
     ...mapActions('Auth', ['login', 'register']),
   },
 };
