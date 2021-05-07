@@ -7,7 +7,11 @@ export const AxiosClient = {
   }),
 
   setAuthHeader(token) {
-    AxiosClient.client.defaults.headers.Authorization = `Basic ${token}`;
+    this.client.defaults.headers.Authorization = `Basic ${token}`;
+  },
+
+  deleteAuthHeader() {
+    delete this.client.defaults.headers.Authorization;
   },
 };
 

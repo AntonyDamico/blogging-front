@@ -19,6 +19,7 @@ export default {
       commit('setUser', data);
     },
     logout({ commit }) {
+      AxiosClient.deleteAuthHeader();
       commit('setUser', null);
     },
   },
