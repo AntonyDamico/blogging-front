@@ -64,6 +64,7 @@ export default {
           password: this.password,
         });
         this.$parent.close();
+        this.$buefy.toast.open('Sessión iniciada');
       } catch (error) {
         console.log(error);
         this.failed = true;
