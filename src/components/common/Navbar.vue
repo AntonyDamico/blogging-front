@@ -12,7 +12,7 @@
         <b-button type="is-primary" @click="signUp">Registro</b-button>
       </div>
       <div class="buttons" v-else>
-        <b-button type="is-danger" @click="logout">Cerrar sesión</b-button>
+        <b-button type="is-danger" @click="performLogout">Cerrar sesión</b-button>
       </div>
     </template>
   </b-navbar>
@@ -41,6 +41,7 @@ export default {
     performLogout() {
       this.logout();
       this.$buefy.toast.open('Sessión cerrada');
+      if (this.$route.name !== 'Home') this.$router.push({ name: 'Home' });
     },
 
     openAuthModal(isLogin) {

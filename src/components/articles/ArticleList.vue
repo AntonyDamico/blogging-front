@@ -4,11 +4,11 @@
       <h1 class="title is-1">No hay artículos...</h1>
     </div>
     <div class="columns is-multiline main-content">
-          <!-- :author="article.author" -->
       <ad-article-summary-element
         v-for="(article, index) in articles" :key="index"
         :url="article.url"
         :slug="article.slug"
+        :author="article.author"
         :title="article.title"
         :summary="article.summary"
         :date="article.createdAt"
