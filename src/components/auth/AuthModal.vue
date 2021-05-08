@@ -25,9 +25,7 @@
         </div>
 
         <div>
-          <b-button type="is-primary" :disabled="missingFields" @click="submit">
-            Entrar
-          </b-button>
+          <input :disabled="missingFields" type="submit" value="Entrar" class="button is-primary" />
         </div>
       </footer>
     </form>
