@@ -34,7 +34,6 @@ export default {
     logout({ commit }) {
       AxiosClient.deleteAuthHeader();
       commit('setUser', null);
-      if (this.$route.name !== 'Home') this.$router.push('Home');
     },
   },
 

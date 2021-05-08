@@ -3,4 +3,9 @@ export const createBasicToken = ({ username, password }) => {
   return btoa(toEncode);
 };
 
-export default { createBasicToken };
+export const getErrorMessage = (response) => {
+  const key = Object.keys(response)[0];
+  let errorMessage = response[key];
+  if (Array.isArray(errorMessage)) errorMessage = errorMessage.join(', ');
+  return `${key}: ${errorMessage}`;
+};

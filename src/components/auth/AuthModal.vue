@@ -20,12 +20,14 @@
       </section>
 
       <footer class="modal-card-foot">
-        <div>
-          <b-button type="is-primary" @click="submit">Entrar</b-button>
-        </div>
-
         <div v-if="failed" class="tag is-danger">
           {{ errorMessage }}
+        </div>
+
+        <div>
+          <b-button type="is-primary" :disabled="missingFields" @click="submit">
+            Entrar
+          </b-button>
         </div>
       </footer>
     </form>
@@ -52,6 +54,14 @@ export default {
     };
   },
 
+  computed: {
+    missingFields() {
+      const missing = !this.username.length || !this.password.length;
+      if (this.isLogin) return missing;
+      return missing || !this.email.length;
+    },
+  },
+
   methods: {
     onKey() {
       this.failed = false;
@@ -62,10 +72,11 @@ export default {
         if (this.isLogin) {
           await this.performLogin();
         } else {
-          this.performRegister();
+          await this.performRegister();
         }
       } catch (error) {
         this.failed = true;
+        this.errorMessage = error.message;
       }
     },
 
@@ -95,3 +106,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.modal-card-foot {
+  flex-flow: column;
+
+  .tag {
+    margin-bottom: 1rem;
+  }
+}
+</style>
