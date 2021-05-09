@@ -4,24 +4,24 @@
       <p class="modal-card-title">Nuevo Artículo</p>
     </header>
 
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" enctype=“multipart/form-data”>
       <section class="modal-card-body">
 
         <b-field label="Título">
-          <b-input type="text"  v-model="title" autofocus @keyup.native="onKey" />
+          <b-input type="text"  v-model="article.title" autofocus @keyup.native="onKey" />
         </b-field>
 
         <b-field label="Cuerpo">
-          <b-input type="textarea" v-model="body" @keyup.native="onKey" />
+          <b-input type="textarea" maxlength="400" v-model="article.body" @keyup.native="onKey" />
         </b-field>
 
         <label for="image" class="label">Imágen</label>
-        <b-field class="file" :class="{'has-name': !!image}">
+        <b-field class="file" :class="{'has-name': uploadedImage}">
           <b-upload v-model="image" class="file-label">
               <span class="file-cta">
                   <span class="file-label">Click to upload</span>
               </span>
-              <span class="file-name" v-if="image">
+              <span class="file-name" v-if="uploadedImage">
                   {{ image.name }}
               </span>
           </b-upload>
@@ -43,13 +43,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'ArticleModal',
 
   data() {
     return {
-      title: '',
-      body: '',
+      article: {
+        title: '',
+        body: '',
+      },
       image: null,
       failed: false,
       errorMessage: '',
@@ -58,7 +62,10 @@ export default {
 
   computed: {
     missingFields() {
-      return !this.title.length || !this.body.length;
+      return !this.article.title.length || !this.article.body.length;
+    },
+    uploadedImage() {
+      return Boolean(this.image);
     },
   },
 
@@ -69,12 +76,29 @@ export default {
 
     async submit() {
       try {
-        //
+        await this.performSubmit();
       } catch (error) {
         this.failed = true;
         this.errorMessage = error.message;
       }
     },
+
+    async performSubmit() {
+      const finalArticle = this.article;
+      if (this.uploadedImage) finalArticle.image = this.image;
+      const article = await this.submitArticle(finalArticle);
+      this.$parent.close();
+      this.goToDetail(article);
+    },
+
+    goToDetail({ slug, url }) {
+      const routerContent = {
+        name: 'ArticleDetail',
+        params: { slug, url },
+      };
+      this.$router.push(routerContent);
+    },
+    ...mapActions('Article', ['submitArticle']),
   },
 };
 </script>

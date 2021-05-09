@@ -23,6 +23,7 @@ export default {
     async submitArticle({ commit }, newArticle) {
       const { data } = await ArticleService.submitArticle(newArticle);
       commit('setArticle', data);
+      return data;
     },
   },
 
