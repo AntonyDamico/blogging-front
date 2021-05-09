@@ -26,7 +26,9 @@ export default {
     },
 
     setLoggedUser({ commit }, { credentials, data }) {
-      AxiosClient.setAuthHeader(createBasicToken(credentials));
+      // eslint-disable-next-line no-param-reassign
+      data.token = createBasicToken(credentials);
+      AxiosClient.setAuthHeader(data.token);
       commit('setUser', data);
       eventBus.$emit('loggedUser');
     },
@@ -34,7 +36,6 @@ export default {
     logout({ commit }) {
       AxiosClient.deleteAuthHeader();
       commit('setUser', null);
-      if (this.$route.name !== 'Home') this.$router.push('Home');
     },
   },
 

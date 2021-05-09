@@ -8,10 +8,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import AdNavbar from '@/components/common/Navbar.vue';
+import { AxiosClient } from '@/api/service';
 
 export default {
   components: { AdNavbar },
+  mounted() {
+    this.setTokenFromStore();
+  },
+  computed: {
+    ...mapGetters('Auth', ['token']),
+  },
+  methods: {
+    setTokenFromStore() {
+      if (!this.token) return;
+      AxiosClient.setAuthHeader(this.token);
+    },
+  },
 };
 </script>
 
