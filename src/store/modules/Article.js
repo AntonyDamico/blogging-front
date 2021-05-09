@@ -25,6 +25,12 @@ export default {
       commit('setArticle', data);
       return data;
     },
+
+    async deleteArticle({ commit }, slug) {
+      const { data } = await ArticleService.deleteArticle(slug);
+      commit('setArticle', null);
+      return data;
+    },
   },
 
   mutations: {
