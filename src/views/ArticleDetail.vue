@@ -1,6 +1,7 @@
 <template>
   <div v-if="article">
     <ad-article-hero
+      :slug="article.slug"
       :title="article.title"
       :author="article.author"
       :date="article.date"
