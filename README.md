@@ -1,29 +1,17 @@
 # blogging
 
-## Project setup
+Prueba técnica de crear un blog con artículos y usuarios. El backend está realizado con Python, Django y Django Rest
+Frameork. El frontend está realizao con Vue.js.
+
+## Setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Inicio de servidor de desarrollo
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Configuración
+Para cambiar el servidor del back se debe modificar la variable `BASE_URL` en el fichero `src/common/constants.js`.
