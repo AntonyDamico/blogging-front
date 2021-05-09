@@ -9,6 +9,7 @@ export const AxiosClient = {
   }),
 
   setAuthHeader(token) {
+    console.log('tokeneeee');
     this.client.defaults.headers.Authorization = `Basic ${token}`;
   },
 
@@ -23,6 +24,10 @@ export const AxiosClient = {
   post(url, data, headers) {
     return this.client.post(url, data, headers)
       .catch(this.errorHandler);
+  },
+
+  delete(url) {
+    return this.client.delete(url).catch(this.errorHandler);
   },
 
   posWithtFile(url, data) {
@@ -72,6 +77,11 @@ export const ArticleService = {
 
   submitArticle(article) {
     return this.client.posWithtFile(this.baseString, article);
+  },
+
+  deleteArticle(slug) {
+    const url = `${this.baseString}/${slug}`;
+    return this.client.delete(url);
   },
 };
 

@@ -12,6 +12,7 @@
         <b-button type="is-primary" @click="signUp">Registro</b-button>
       </div>
       <div class="buttons" v-else>
+        <p v-if="isAuthenticated" class="username">{{ username }}</p>
         <b-button type="is-danger" @click="performLogout">Cerrar sesión</b-button>
       </div>
     </template>
@@ -26,7 +27,7 @@ export default {
   name: 'Navbar',
 
   computed: {
-    ...mapGetters('Auth', ['isAuthenticated']),
+    ...mapGetters('Auth', ['isAuthenticated', 'username']),
   },
 
   methods: {
@@ -55,3 +56,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.username {
+  margin-right: 2rem;
+  font-size: 2rem;
+}
+</style>
