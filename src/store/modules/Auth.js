@@ -11,6 +11,7 @@ export default {
 
   getters: {
     isAuthenticated: (state) => Boolean(state.user),
+    username: ({ user }) => user?.username,
     token: ({ user }) => user?.token,
   },
 

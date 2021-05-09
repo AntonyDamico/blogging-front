@@ -5,7 +5,7 @@
       :subtitle="author"
     >
       <b-button
-        v-if="isAuthenticated"
+        v-if="showDeleteButton"
         type="is-danger"
         @click="performDelete"
       >
@@ -30,7 +30,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters('Auth', ['isAuthenticated']),
+    showDeleteButton() {
+      return this.username === this.author;
+    },
+    ...mapGetters('Auth', ['username']),
   },
 
   methods: {
